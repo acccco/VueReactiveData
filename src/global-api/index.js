@@ -1,7 +1,7 @@
 import { ASSET_TYPES } from "../util/constants"
 import { initUse } from "./use"
 import { initAssetRegisters } from "./asstes"
-
+import { initExtend } from "./extend"
 
 export function initGlobalApi(Vue) {
 

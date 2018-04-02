@@ -3,9 +3,7 @@ import { defineComputed, proxy } from '../instance/state'
 import { mergeOptions } from "../util/vue-util/options"
 
 export function initExtend (Vue) {
-    /**
-     * cid 用于判断 Vue 派生出来的子类的 ID
-     */
+    // cid 用于判断 Vue 派生出来的子类的 ID
     Vue.cid = 0
     let cid = 1
 
@@ -24,13 +22,17 @@ export function initExtend (Vue) {
         const Sub = function VueComponent (options) {
             this._init(options)
         }
+        // 获取 Super.prototype 下的方法
         Sub.prototype = Object.create(Super.prototype)
+        //  修正 constructor
         Sub.prototype.constructor = Sub
         Sub.cid = cid++
+        // 合并 options
         Sub.options = mergeOptions(
             Super.options,
             extendOptions
         )
+        // 保存父类引用
         Sub['super'] = Super
 
         // For props and computed properties, we define the proxy getters on
@@ -43,31 +45,25 @@ export function initExtend (Vue) {
             initComputed(Sub)
         }
 
-        // allow further extension/mixin/plugin usage
+        // 获取 extension/mixin/plugin 方法
         Sub.extend = Super.extend
         Sub.mixin = Super.mixin
         Sub.use = Super.use
 
-        // create asset registers, so extended classes
-        // can have their private assets too.
+        // 获取到父类下的方法
         ASSET_TYPES.forEach(function (type) {
             Sub[type] = Super[type]
         })
-        // enable recursive self-lookup
         // 支持循环自身引用
         if (name) {
             Sub.options.components[name] = Sub
         }
 
-        // keep a reference to the super options at extension time.
-        // later at instantiation we can check if Super's options have
-        // been updated.
         // 保留对父类的引用，用于在实例化的使用检查父类的相关值是否改变
         Sub.superOptions = Super.options
         Sub.extendOptions = extendOptions
         Sub.sealedOptions = extend({}, Sub.options)
 
-        // cache constructor
         // 缓存当前实例，保存在 option._Ctor 中
         cachedCtors[SuperId] = Sub
         return Sub

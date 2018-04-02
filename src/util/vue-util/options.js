@@ -1,5 +1,4 @@
 import {nativeWatch} from './env'
-import {set} from '../observer/index'
 
 import {
     ASSET_TYPES,
@@ -10,16 +9,11 @@ import {
     extend,
     hasOwn,
     camelize,
-    toRawType,
-    capitalize,
-    isBuiltInTag,
     isPlainObject
 } from '../normal-util'
 
 /**
- * Option overwriting strategies are functions that handle
- * how to merge a parent option value and a child option
- * value into the final value.
+ * 该对象用于保存 option 下各字段的合并方法
  */
 const strats = {}
 
@@ -36,7 +30,7 @@ function mergeData(to, from) {
         toVal = to[key]
         fromVal = from[key]
         if (!hasOwn(to, key)) {
-            set(to, key, fromVal)
+            to[key] = fromVal
         } else if (isPlainObject(toVal) && isPlainObject(fromVal)) {
             mergeData(toVal, fromVal)
         }
@@ -46,7 +40,6 @@ function mergeData(to, from) {
 
 /**
  * Data
- *
  * 合并 data 的实际方法
  */
 export function mergeDataOrFn(parentVal, childVal, vm) {
@@ -108,11 +101,6 @@ LIFECYCLE_HOOKS.forEach(hook => {
 
 /**
  * Assets
- *
- * When a vm is present (instance creation), we need to do
- * a three-way merge between constructor options, instance
- * options and parent options.
- *
  * 由于 components/directives/filters 的存储方式都为 { key: value } 的形式所以合并方法一致
  */
 function mergeAssets(parentVal, childVal, vm, key) {
@@ -129,8 +117,6 @@ ASSET_TYPES.forEach(function (type) {
 })
 
 /**
- * Watchers.
- *
  * 合并 watch
  * 结果
  * {
@@ -160,7 +146,6 @@ strats.watch = function (parentVal, childVal, vm, key) {
 }
 
 /**
- * Other object hashes.
  * 一些其他属性的合并方法
  */
 strats.props =
@@ -178,7 +163,6 @@ strats.provide = mergeDataOrFn
 /**
  * 默认的合并方法
  * 若第二个参数有值，则使用第二个，否则使用第一个
- *
  */
 const defaultStrat = function (parentVal, childVal) {
     return childVal === undefined
@@ -188,7 +172,6 @@ const defaultStrat = function (parentVal, childVal) {
 
 /**
  * 确保所有的 props 有统一的结构
- *
  * 最终各式化出来的结构
  * {
  *   xxx: {
@@ -226,9 +209,7 @@ function normalizeProps(options, vm) {
 }
 
 /**
- *
  * 确保 inject 有统一的结构
- *
  * 最终各式化出来的结构
  * {
  *   xxx: {
@@ -237,7 +218,6 @@ function normalizeProps(options, vm) {
  *   }
  *   ...
  * }
- *
  */
 function normalizeInject(options, vm) {
     const inject = options.inject
@@ -259,7 +239,6 @@ function normalizeInject(options, vm) {
 
 /**
  * 指令有两种写法，处理成同一种写法
- *
  * 最终格式化出来的结果
  * {
  *   xxx: {
@@ -284,8 +263,7 @@ function normalizeDirectives(options) {
 }
 
 /**
- * Merge two option objects into a new one.
- * Core utility used in both instantiation and inheritance.
+ * 将两个 option 对象合并成一个对象
  */
 export function mergeOptions(parent, child, vm) {
 
