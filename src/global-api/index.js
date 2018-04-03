@@ -19,7 +19,7 @@ export function initGlobalApi(Vue) {
     // 挂载注册中间件函数
     initUse(Vue)
 
-    // TODO 实现子类生成方法
+    // 实现子类生成方法
     initExtend(Vue)
 
     // 生成注册全局的 component/directive/filter 方法

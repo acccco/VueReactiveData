@@ -38,12 +38,13 @@ export function initExtend (Vue) {
         // For props and computed properties, we define the proxy getters on
         // the Vue instances at extension time, on the extended prototype. This
         // avoids Object.defineProperty calls for each instance created.
-        if (Sub.options.props) {
+        // TODO 暂不了解为什么要怎么做
+        /*if (Sub.options.props) {
             initProps(Sub)
         }
         if (Sub.options.computed) {
             initComputed(Sub)
-        }
+        }*/
 
         // 获取 extension/mixin/plugin 方法
         Sub.extend = Super.extend
