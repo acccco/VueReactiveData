@@ -5,6 +5,8 @@ import {
 import {defineReactive, observe, observerState} from "../observe";
 import {validateProp} from "../util/vue-util/props";
 import Dep from "../observe/dep";
+import {nativeWatch} from "../util/vue-util/env";
+import Watcher from "../observe/watcher";
 
 const sharedPropertyDefinition = {
     enumerable: true,
@@ -102,6 +104,7 @@ export function getData (data, vm) {
 const computedWatcherOptions = { lazy: true }
 
 function initComputed (vm, computed) {
+    // _computedWatchers 保管生成的 watcher
     const watchers = vm._computedWatchers = Object.create(null)
 
     for (const key in computed) {
@@ -116,8 +119,6 @@ function initComputed (vm, computed) {
             computedWatcherOptions
         )
 
-        // component-defined computed properties are already defined on the
-        // component prototype.
         // 定义计算属性
         if (!(key in vm)) {
             defineComputed(vm, key, userDef)

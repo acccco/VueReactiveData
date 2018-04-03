@@ -57,16 +57,6 @@ function flushSchedulerQueue() {
         id = watcher.id
         has[id] = null
         watcher.run()
-        // 警告循环引用
-        if (has[id] != null) {
-            circular[id] = (circular[id] || 0) + 1
-            if (circular[id] > MAX_UPDATE_COUNT) {
-                console.log('You may have an infinite update loop ' + (watcher.user
-                    ? `in watcher with expression "${watcher.expression}"`
-                    : `in a component render function.`))
-                break
-            }
-        }
     }
 
     // 保存队列信息，供之后调用

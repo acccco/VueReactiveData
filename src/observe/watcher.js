@@ -30,7 +30,7 @@ export default class Watcher {
     value: any;*/
 
     constructor(vm,
-                expOrFn,          // 需要监听的值
+                expOrFn,          // 需要监听的值或是取值函数
                 cb,               // 监听回调
                 options,          // 对于该监听的设置
                 isRenderWatcher   // 用于判断是否是在render的时候的监听
@@ -112,7 +112,7 @@ export default class Watcher {
     }
 
     /**
-     * 清空所有的依赖
+     * 更新依赖
      */
     cleanupDeps() {
         let i = this.deps.length
@@ -139,7 +139,7 @@ export default class Watcher {
      */
     update() {
         // lazy 不立即更新，交由之后的脏检查处理
-        // 一般出现在计算属性上
+        // 一般出现在计算属性等一些没有回调函数的 watcher 上
         if (this.lazy) {
             this.dirty = true
         // TODO sync 出现情况未知，同步还是双向绑定待确定

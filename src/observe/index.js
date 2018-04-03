@@ -28,6 +28,7 @@ export class Observer {
 
     constructor (value) {
         this.value = value
+        // TODO 不清楚这个 dep 的作用
         this.dep = new Dep()
         this.vmCount = 0
         def(value, '__ob__', this)
