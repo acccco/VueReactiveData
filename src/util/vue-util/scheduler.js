@@ -13,8 +13,6 @@ const activatedChildren = []
 let circular = {}
 let index = 0
 
-export const MAX_UPDATE_COUNT = 100
-
 export function queueWatcher(watcher) {
     const id = watcher.id
     if (has[id] == null) {

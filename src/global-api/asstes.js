@@ -2,9 +2,6 @@ import { ASSET_TYPES } from "../util/constants"
 import { isPlainObject } from "../util/normal-util"
 
 export function initAssetRegisters (Vue) {
-    /**
-     * Create asset registration methods.
-     */
     ASSET_TYPES.forEach(type => {
         Vue[type] = function (id, definition){
             if (!definition) {

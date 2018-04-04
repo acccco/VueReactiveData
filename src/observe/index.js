@@ -16,16 +16,17 @@ export const observerState = {
 }
 
 /**
- * Observer class that are attached to each observed
- * object. Once attached, the observer converts target
- * object's property keys into getter/setters that
- * collect dependencies and dispatches updates.
+ * 收集依赖
  */
 export class Observer {
 
     constructor (value) {
         this.value = value
-        // TODO 不清楚这个 dep 的作用
+        // 这个 ob 主要是对一些未监听变量补充，因为这个 ob 下保存的是这个对象的监听
+        // 比如，一般上 监听{a:{b:1}}
+        // 会在 a 的 set 和 get 上收集依赖和触发依赖
+        // 但是当有如下操作时：a.c = 1，由于是新添加的属性，并不能做到依赖的收集
+        // 所以便有了这个 dep，看源码中主要在处理数组函数，以及 set 方法中使用
         this.dep = new Dep()
         this.vmCount = 0
         def(value, '__ob__', this)
@@ -160,8 +161,8 @@ export function defineReactive (obj, key, val, customSetter, shallow) {
 
 
 /**
- * Collect dependencies on array elements when the array is touched, since
- * we cannot intercept array element access like property getters.
+ * 由于数组不能像对象拥有自定义的 get/set 所以只能将 dep 保存到对应的变量下
+ * 具体的使用等添加 set 机制后细看
  */
 function dependArray (value) {
     for (let e, i = 0, l = value.length; i < l; i++) {
