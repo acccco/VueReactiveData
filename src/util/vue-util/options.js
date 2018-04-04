@@ -120,7 +120,7 @@ ASSET_TYPES.forEach(function (type) {
  * 合并 watch
  * 结果
  * {
- *   xxx: [Function, Function...]
+ *   xxx: [Function/Object, Function/Object...]
  * }
  */
 strats.watch = function (parentVal, childVal, vm, key) {

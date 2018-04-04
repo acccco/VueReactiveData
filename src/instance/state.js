@@ -158,3 +158,57 @@ function createComputedGetter (key) {
     }
 }
 
+function initWatch (vm, watch) {
+    for (const key in watch) {
+        const handler = watch[key]
+        if (Array.isArray(handler)) {
+            for (let i = 0; i < handler.length; i++) {
+                createWatcher(vm, key, handler[i])
+            }
+        } else {
+            createWatcher(vm, key, handler)
+        }
+    }
+}
+
+function createWatcher (vm, keyOrFn, handler, options) {
+    if (isPlainObject(handler)) {
+        options = handler
+        handler = handler.handler
+    }
+    if (typeof handler === 'string') {
+        // 支持 handler 为 this 下的一个方法
+        handler = vm[handler]
+    }
+    return vm.$watch(keyOrFn, handler, options)
+}
+
+export function stateMixin (Vue) {
+    // 将 this._data 代理到 this.$data 上
+    const dataDef = {}
+    dataDef.get = function () { return this._data }
+    const propsDef = {}
+    propsDef.get = function () { return this._props }
+    Object.defineProperty(Vue.prototype, '$data', dataDef)
+    Object.defineProperty(Vue.prototype, '$props', propsDef)
+
+    // 为原型链添加 $watch 方法
+    Vue.prototype.$watch = function (expOrFn, cb, options) {
+        const vm = this
+        if (isPlainObject(cb)) {
+            // 处理 handle 传值方式
+            return createWatcher(vm, expOrFn, cb, options)
+        }
+        options = options || {}
+        // 标志该 watch 是用户添加的
+        options.user = true
+        const watcher = new Watcher(vm, expOrFn, cb, options)
+        if (options.immediate) {
+            cb.call(vm, watcher.value)
+        }
+        return function unwatchFn () {
+            watcher.teardown()
+        }
+    }
+}
+
