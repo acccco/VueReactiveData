@@ -1,7 +1,7 @@
 import Vue from "./instance/index"
-import { initGlobalAPI } from "./global-api/index"
+import {initGlobalApi} from "./global-api";
 
-initGlobalAPI(Vue)
+initGlobalApi(Vue)
 
 Vue.__VERSION__ = '0.0.1'
 

@@ -12,11 +12,8 @@ export function initLifecycle(vm) {
 
     // 初始化 $children 和 $refs 列表
     vm.$children = []
-    vm.$refs = {}
 
     vm._watcher = null
-    vm._inactive = null
-    vm._directInactive = false
     // 组件刚生成，以下状态为 false
     vm._isMounted = false
     vm._isDestroyed = false
@@ -33,9 +30,5 @@ export function callHook (vm, hook) {
                 console.log(e)
             }
         }
-    }
-    // 如果设置了 _hasHookEvent 则向父组件发出 hook:xxx 事件
-    if (vm._hasHookEvent) {
-        vm.$emit('hook:' + hook)
     }
 }

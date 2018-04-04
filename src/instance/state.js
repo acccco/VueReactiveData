@@ -1,7 +1,4 @@
-import {
-    bind, isPlainObject,
-    noop
-} from '../util/normal-util'
+import {bind, isPlainObject, noop} from '../util/normal-util'
 import {defineReactive, observe, observerState} from "../observe";
 import {validateProp} from "../util/vue-util/props";
 import Dep from "../observe/dep";

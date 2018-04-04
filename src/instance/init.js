@@ -3,12 +3,13 @@ import {extend} from "../util/normal-util";
 import {callHook, initLifecycle} from "./lifecycle";
 import {initEvents} from "./events";
 import {initRender} from "./render";
-import {initInjections} from "./inject";
+import {initInjections, initProvide} from "./inject";
+import {initState} from "./state";
 
 let uid = 0
 
 export function initMixin(Vue) {
-    Vue.prototype._init = function (options) {
+    Vue.prototype._init = function (options = {}) {
         const vm = this
         // 每个实例对应的 id
         vm.uid = uid++
@@ -24,11 +25,10 @@ export function initMixin(Vue) {
         // 保存自身实例
         vm._self = vm
         initLifecycle(vm)
-        initEvents(vm)
-        initRender(vm)
-        // 在 beforeCreate 钩子调用前，初始化组件生命周期，时间和 render 函数
-        callHook(vm, 'beforeCreate')
         initInjections(vm)
+        initState(vm)
+        initProvide(vm)
+        callHook(vm, 'created')
     }
 }
 

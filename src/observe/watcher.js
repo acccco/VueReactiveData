@@ -58,6 +58,8 @@ export default class Watcher {
         // lazy 用于判断该 watcher 是否会主动触发变化
         // 若该 watcher 不会主动触发，则由 dirty 标志是否需要重新获取值
         this.dirty = this.lazy
+        // 以下4个字段主要用于整理 watcher 和 dep 的双向关联关系
+        // 用于解除 watcher 和 dep 的依赖关系
         this.deps = []
         this.newDeps = []
         this.depIds = new Set()
@@ -197,7 +199,7 @@ export default class Watcher {
     }
 
     /**
-     * 从有关联的项目中移除当前 watcher
+     * 取消掉 watch 和 dep 的双向关联
      */
     teardown() {
         if (this.active) {

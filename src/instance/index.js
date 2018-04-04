@@ -1,10 +1,11 @@
-import {initState, stateMixin} from "./state";
+import {stateMixin} from "./state";
+import {initMixin} from "./init";
 
 function Vue(options) {
     this._init(options)
 }
 
-initState(Vue)
+initMixin(Vue)
 stateMixin(Vue)
 
 export default Vue
