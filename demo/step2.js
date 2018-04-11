@@ -15,8 +15,8 @@ let Dep = function(){
         }
     }
 
-    this.notify = function(oldValue, newValue){
-        this.subs.forEach(fnc=>fnc(oldValue, newValue))
+    this.notify = function(newValue, oldValue){
+        this.subs.forEach(fnc=>fnc(newValue, oldValue))
     }
 }
 
@@ -36,7 +36,7 @@ let defineReactive = function(object, key, value){
         },
         set: function(newValue){
             if(newValue != value){
-                dep.notify(value, newValue)
+                dep.notify(newValue, value)
             }
             value = newValue
         }
@@ -45,13 +45,13 @@ let defineReactive = function(object, key, value){
 
 let object = {}
 defineReactive(object, 'test', 'test')
-Dep.target = function(oldValue, newValue){console.log('我被添加进去了，新的值是：' + newValue)}
+Dep.target = function(newValue, oldValue){console.log('我被添加进去了，新的值是：' + newValue)}
 object.test
 // test
 Dep.target = null
 object.test = 'test2'
 // 我被添加进去了，新的值是：test2
-Dep.target = function(oldValue, newValue){console.log('添加第二个函数，新的值是：' + newValue)}
+Dep.target = function(newValue, oldValue){console.log('添加第二个函数，新的值是：' + newValue)}
 object.test
 // test
 Dep.target = null
