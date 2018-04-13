@@ -30,7 +30,6 @@ let defineReactive = function (object, key, value) {
         get: function () {
             if (Dep.target) {
                 dep.addSub(Dep.target)
-                // 添加 watcher 对 dep 的引用
                 Dep.target.addDep(dep)
             }
             return value
