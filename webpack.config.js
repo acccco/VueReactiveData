@@ -5,11 +5,14 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     mode: 'none',
     entry: {
-        app: './src/packForWindow.js',
+        app: './src/index.js'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'aVue.js'
+        filename: 'aVue.js',
+        library: "Vue",
+        libraryTarget: "umd",
+        libraryExport: "default"
     },
     devtool: '#source-map',
     module: {
