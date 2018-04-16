@@ -40,10 +40,14 @@ obj2.arrayTest[0].num = 10
 // 监听函数，数组内所有元素 = 19
 obj2.arrayTest.push({num: 5})
 // 监听函数，数组内所有元素 = 24
-// 由于未监听数组索引，为数组添加了一个方法
+// 多次更改，一次更新
 obj2.arrayTest[5] = {num: 6}
+obj2.arrayTest[6] = {num: 7}
+obj2.arrayTest[7] = {num: 8}
+obj2.arrayTest[8] = {num: 9}
+obj2.arrayTest[9] = {num: 10}
 obj2.arrayTest.$apply()
-// 监听函数，数组内所有元素 = 30
+// 监听函数，数组内所有元素 = 64
 
 watcher2.teardown()
 
@@ -53,4 +57,4 @@ obj2.arrayTest[0].num = 11
 watcher2.reset()
 
 obj2.arrayTest[0].num = 15
-// 监听函数，数组内所有元素 = 35
+// 监听函数，数组内所有元素 = 69

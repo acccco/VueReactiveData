@@ -33,7 +33,6 @@ methodsToPatch.forEach(function (method) {
                 break
         }
         if (inserted) ob.observeArray(inserted)
-        console.log('array obj in')
         // 触发 notify 方法
         ob.dep.notify()
         return result
