@@ -39,4 +39,8 @@ export default class Watcher {
         this.deps = []
     }
 
+    reset() {
+        this.get()
+    }
+
 }
