@@ -20,7 +20,7 @@ export const observerState = {
  */
 export class Observer {
 
-    constructor (value) {
+    constructor(value) {
         this.value = value
         // 这个 ob 主要是对一些未监听变量补充，因为这个 ob 下保存的是这个对象的监听
         // 比如，一般上 监听{a:{b:1}}
@@ -34,7 +34,7 @@ export class Observer {
             const augment = hasProto
                 ? protoAugment
                 : copyAugment
-            // 覆盖数组中一些改变了原数组的方法，使得方法得以监听
+            // 覆盖数组中一些不改变数组引用的方法，使得方法得以监听
             augment(value, arrayMethods, arrayKeys)
             this.observeArray(value)
         } else {
@@ -45,7 +45,7 @@ export class Observer {
     /**
      * 遍历对象下属性，使得属性变成可监听的结构
      */
-    walk (obj) {
+    walk(obj) {
         const keys = Object.keys(obj)
         for (let i = 0; i < keys.length; i++) {
             defineReactive(obj, keys[i], obj[keys[i]])
@@ -55,7 +55,7 @@ export class Observer {
     /**
      * 同上，遍历数组
      */
-    observeArray (items) {
+    observeArray(items) {
         for (let i = 0, l = items.length; i < l; i++) {
             observe(items[i])
         }
@@ -67,14 +67,14 @@ export class Observer {
  * 如果能使用 __proto__ 则将数组的处理方法放在该对象下
  * 根据原型链，先会找到该方法，而不是数组对象下的方法，实现替换处理方法
  */
-function protoAugment (target, src, keys) {
+function protoAugment(target, src, keys) {
     target.__proto__ = src
 }
 
 /**
  * 如果不能使用 __proto__ 则直接将该方法定义在当前对象下
  */
-function copyAugment (target, src, keys) {
+function copyAugment(target, src, keys) {
     for (let i = 0, l = keys.length; i < l; i++) {
         const key = keys[i]
         def(target, key, src[key])
@@ -84,7 +84,7 @@ function copyAugment (target, src, keys) {
 /**
  * 将传入值转换为可监听结构，是对 Observer 的一个包装，使得外部直接调用即可
  */
-export function observe (value, asRootData) {
+export function observe(value, asRootData) {
     // 原判断中有 value instanceof VNode 这里先去掉
     // TODO vNode 也是个对象，但不需要监听
     if (!isObject(value)) {
@@ -111,7 +111,7 @@ export function observe (value, asRootData) {
 /**
  * shallow 用于判断传入对象是否需要添加监听
  */
-export function defineReactive (obj, key, val, customSetter, shallow) {
+export function defineReactive(obj, key, val, customSetter, shallow) {
     const dep = new Dep()
 
     const property = Object.getOwnPropertyDescriptor(obj, key)
@@ -127,7 +127,7 @@ export function defineReactive (obj, key, val, customSetter, shallow) {
     Object.defineProperty(obj, key, {
         enumerable: true,
         configurable: true,
-        get: function reactiveGetter () {
+        get: function reactiveGetter() {
             const value = getter ? getter.call(obj) : val
             if (Dep.target) {
                 dep.depend()
@@ -140,7 +140,7 @@ export function defineReactive (obj, key, val, customSetter, shallow) {
             }
             return value
         },
-        set: function reactiveSetter (newVal) {
+        set: function reactiveSetter(newVal) {
             // 如果对象设置过 getter 的话，使用 getter 来取值
             const value = getter ? getter.call(obj) : val
             // 如果值相同的话不做任何事
@@ -163,7 +163,7 @@ export function defineReactive (obj, key, val, customSetter, shallow) {
  * 由于数组不能像对象拥有自定义的 get/set 所以只能将 dep 保存到对应的变量下
  * 具体的使用等添加 set 机制后细看
  */
-function dependArray (value) {
+function dependArray(value) {
     for (let e, i = 0, l = value.length; i < l; i++) {
         e = value[i]
         e && e.__ob__ && e.__ob__.dep.depend()
