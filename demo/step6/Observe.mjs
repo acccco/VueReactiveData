@@ -41,6 +41,7 @@ export class Observer {
             // 覆盖数组中一些改变了原数组的方法，使得方法得以监听
             augment(value, arrayMethods, arrayKeys)
             this.observeArray(value)
+            
         } else {
             this.walk(value)
         }
