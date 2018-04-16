@@ -42,3 +42,8 @@ methodsToPatch.forEach(function (method) {
         configurable: true
     })
 })
+
+arrayMethods.$apply = function () {
+    this.__ob__.observeArray(this)
+    this.__ob__.dep.notify()
+}

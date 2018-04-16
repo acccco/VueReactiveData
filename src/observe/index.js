@@ -34,7 +34,7 @@ export class Observer {
             const augment = hasProto
                 ? protoAugment
                 : copyAugment
-            // 覆盖数组中一些不改变数组引用的方法，使得方法得以监听
+            // 覆盖数组中一些改变了原数组的方法，使得方法得以监听
             augment(value, arrayMethods, arrayKeys)
             this.observeArray(value)
         } else {

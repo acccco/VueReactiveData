@@ -2,30 +2,47 @@ import Watcher from './Watcher'
 import {observe} from "./Observe"
 
 let object = {
-    num1: 1,
-    num2: 1,
-    objectTest: {
-        num3: 1
-    },
     arrayTest: [1, 2, 3, 4, 5]
 }
 
 observe(object)
 
 let watcher = new Watcher(object, function () {
-    return this.num1 + this.num2 + this.objectTest.num3
+    return this.arrayTest.reduce((sum, num) => sum + num)
 }, function (newValue, oldValue) {
-    console.log(`监听函数，${object.num1} + ${object.num2} + ${object.objectTest.num3} = ${newValue}`)
+    console.log(`监听函数，数组内所有元素 = ${newValue}`)
 })
 
-let watcher1 = new Watcher(object, function () {
-    return this.num1 + this.num2 + this.objectTest.num3
-}, function (newValue, oldValue) {
-    console.log(`监听函数，${object.num1} + ${object.num2} + ${object.objectTest.num3} = ${newValue}`)
-})
-
-object.num1 = 2
-// 监听函数，2 + 1 + 1 = 4
-object.objectTest.num3 = 2
-// 监听函数，2 + 1 + 2 = 5
 object.arrayTest.push(10)
+// 监听函数，数组内所有元素 = 25
+
+object.arrayTest[1] = 10
+// 无效，但要注意的是并不是数组索引不能被 defineReactive
+// 但是对于数组，我们并不能一开始就确定数组的长度，所以一开始定义索引的 get/set 并没有什么用
+// 所以这里并没有对索引使用 defineReactive
+
+let obj2 = {
+    arrayTest: [{num: 1}, {num: 2}, {num: 3}, {num: 4}]
+}
+
+observe(obj2)
+
+let watcher2 = new Watcher(obj2, function () {
+    return this.arrayTest.reduce((sum, {num}) => sum + num, 0)
+}, function (newValue, oldValue) {
+    console.log(`监听函数，数组内所有元素 = ${newValue}`)
+})
+
+obj2.arrayTest[0].num = 10
+// 监听函数，数组内所有元素 = 19
+obj2.arrayTest.push({num: 5})
+// 监听函数，数组内所有元素 = 24
+// 由于未监听数组索引，为数组添加了一个方法
+obj2.arrayTest[5] = {num: 6}
+obj2.arrayTest.$apply()
+// 监听函数，数组内所有元素 = 30
+
+watcher2.teardown()
+
+obj2.arrayTest[0].num = 11
+// 取消监听，无输出
