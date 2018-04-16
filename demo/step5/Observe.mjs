@@ -41,6 +41,7 @@ export class Observer {
             defineReactive(obj, keys[i], obj[keys[i]])
         }
     }
+
 }
 
 export function observe (value) {
