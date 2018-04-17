@@ -12,7 +12,7 @@ export function initMixin(Vue) {
     Vue.prototype._init = function (options = {}) {
         const vm = this
         // 每个实例对应的 id
-        vm.uid = uid++
+        vm.uid = ++uid
         // 标记对象是否是 vue 对象
         vm._isVue = true
 
@@ -25,6 +25,7 @@ export function initMixin(Vue) {
         // 保存自身实例
         vm._self = vm
         initLifecycle(vm)
+        callHook(vm, 'beforeCreate')
         initInjections(vm)
         initState(vm)
         initProvide(vm)

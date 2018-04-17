@@ -101,7 +101,7 @@ export function getData (data, vm) {
 const computedWatcherOptions = { lazy: true }
 
 function initComputed (vm, computed) {
-    // _computedWatchers 保管生成的 watcher
+    // _computedWatchers 保管生成通过计算属性的 watcher
     const watchers = vm._computedWatchers = Object.create(null)
 
     for (const key in computed) {

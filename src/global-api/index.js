@@ -2,6 +2,7 @@ import { ASSET_TYPES } from "../util/constants"
 import { initUse } from "./use"
 import { initAssetRegisters } from "./asstes"
 import { initExtend } from "./extend"
+import {initMixin} from "./mixin";
 
 export function initGlobalApi(Vue) {
 
@@ -18,6 +19,9 @@ export function initGlobalApi(Vue) {
 
     // 挂载注册中间件函数
     initUse(Vue)
+
+    // 全局混入，并不会生成一个新的类，而是之后所有创建的类都会有影响，所以慎用，或者用 extend 来实现
+    initMixin(Vue)
 
     // 实现子类生成方法
     initExtend(Vue)
