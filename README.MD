@@ -5,3 +5,6 @@ VUE 源码太庞大，打算边阅读 VUE 源码，边实现部分 VUE 功能，
 目前已经了解到 VUE 中是如何实现双向绑定，会记录下一些文章。
 
 就这样
+
+> npm install
+> npm run test
