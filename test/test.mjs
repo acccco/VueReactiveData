@@ -46,7 +46,7 @@ let vm = new Vue({
         }
     },
     computed: {
-        'computedTest': function () {
+        'computedTest'() {
             return this.baseTest
         }
     },
