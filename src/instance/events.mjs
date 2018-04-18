@@ -1,8 +1,34 @@
 import {toArray} from "../util/normal-util.mjs";
+import {updateListeners} from "../vdom/helper/update-listeners";
 
 export function initEvents(vm) {
     vm._events = Object.create(null)
     vm._hasHookEvent = false
+    // $options._parentListeners 为父组件下对应事件的处理函数
+    const listeners = vm.$options._parentListeners
+    if (listeners) {
+        updateComponentListeners(vm, listeners)
+    }
+}
+
+let target
+
+function add (event, fn, once) {
+    if (once) {
+        target.$once(event, fn)
+    } else {
+        target.$on(event, fn)
+    }
+}
+
+function remove (event, fn) {
+    target.$off(event, fn)
+}
+
+export function updateComponentListeners (vm, listeners, oldListeners) {
+    target = vm
+    updateListeners(listeners, oldListeners || {}, add, remove, vm)
+    target = undefined
 }
 
 export function eventsMixin(Vue) {
