@@ -38,3 +38,8 @@ methodsToPatch.forEach(function (method) {
         return result
     })
 })
+
+arrayMethods.$apply = function () {
+    this.__ob__.observeArray(this)
+    this.__ob__.dep.notify()
+}

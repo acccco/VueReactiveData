@@ -6,5 +6,8 @@
   "license": "MIT",
   "scripts": {
     "test": "node --experimental-modules ./test/test.mjs"
+  },
+  "dependencies": {
+    "dot": "^1.1.2"
   }
 }

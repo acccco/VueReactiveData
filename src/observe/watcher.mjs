@@ -29,12 +29,14 @@ export default class Watcher {
     getter: Function;
     value: any;*/
 
-    constructor(vm,
-                expOrFn,          // 需要监听的值或是取值函数
-                cb,               // 监听回调
-                options,          // 对于该监听的设置
-                isRenderWatcher   // 用于判断是否是在render的时候的监听
-    ) {
+    /**
+     * @param vm
+     * @param expOrFn                需要监听的值或是取值函数
+     * @param cb                     监听回调
+     * @param options                对于该监听的设置
+     * @param isRenderWatcher        用于判断是否是在render的时候的监听
+     */
+    constructor(vm, expOrFn, cb, options, isRenderWatcher) {
         this.vm = vm
         // 在 vm 下保存当前 watcher 用于触发 update 钩子
         if (isRenderWatcher) {

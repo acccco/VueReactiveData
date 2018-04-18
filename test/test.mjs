@@ -1,7 +1,13 @@
 import Vue from '../src/index'
+import Watcher from '../src/observe/watcher'
+import dot from 'dot'
+
+let template = '<span>{{=it.baseTest}}</span><span>{{=it.returnTest()}}</span>'
+
+let temFun = dot.template(template)
 
 function watchFuc(newValue, oldValue) {
-    console.log(newValue, oldValue)
+    // console.log(newValue, oldValue)
 }
 
 let props = {
@@ -9,7 +15,15 @@ let props = {
     propsB: 2
 }
 
+let tempalte = '<span>${this.baseTest}</span>'
+
 let vm = new Vue({
+    created() {
+        this.$on('eventTest', () => {
+            console.log('eventTest')
+        })
+        this.methodsTest()
+    },
     data: function () {
         return {
             baseTest: 1,
@@ -46,7 +60,31 @@ let vm = new Vue({
     },
     propsData: {
         propsTest: false
+    },
+    methods: {
+        methodsTest() {
+            console.log('methodsTest')
+            setTimeout(() => {
+                this.$emit('eventTest')
+            }, 3000)
+        },
+        returnTest(){
+            return this.baseTest
+        }
+    },
+    render(renderOptions) {
+        console.log('template')
+        console.log(renderOptions)
+        console.log(temFun(this))
     }
 })
+
+vm.$options.render.call(vm, {a: 1})
+
+new Watcher(vm, '_data', () => {
+    vm.$options.render.call(vm, {a: 1})
+}, {
+    deep: true
+}, true)
 
 vm.baseTest = 2
