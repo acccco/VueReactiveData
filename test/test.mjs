@@ -46,14 +46,14 @@ let vm = new Vue({
         }
     },
     computed: {
-        'computedTest'() {
+        computedTest() {
             return this.baseTest
         }
     },
     props: {
         propsTest: {
             type: Object,
-            default: function () {
+            default() {
                 return props
             }
         }
@@ -68,7 +68,7 @@ let vm = new Vue({
                 this.$emit('eventTest')
             }, 1000)
         },
-        returnTest(){
+        returnTest() {
             return this.baseTest
         }
     },
