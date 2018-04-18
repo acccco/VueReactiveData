@@ -1,4 +1,4 @@
-import {toArray} from "../util/normal-util.mjs";
+import {toArray} from "../util/normal-util";
 import {updateListeners} from "../vdom/helper/update-listeners";
 
 export function initEvents(vm) {
