@@ -173,3 +173,26 @@ function dependArray(value) {
     }
 }
 
+/**
+ * 用于添加在非 data 已经数组中的响应属性
+ */
+export function set (target, key, val) {
+    if (Array.isArray(target)) {
+        target.length = Math.max(target.length, key)
+        target.splice(key, 1, val)
+        return val
+    }
+    if (key in target && !(key in Object.prototype)) {
+        target[key] = val
+        return val
+    }
+    const ob = target.__ob__
+    if (!ob) {
+        target[key] = val
+        return val
+    }
+    defineReactive(ob.value, key, val)
+    ob.dep.notify()
+    return val
+}
+

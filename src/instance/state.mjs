@@ -1,5 +1,5 @@
 import {bind, isPlainObject, noop} from '../util/normal-util'
-import {defineReactive, observe, observerState} from "../observe";
+import {defineReactive, observe, observerState} from "../observe/index";
 import {validateProp} from "../util/vue-util/props";
 import Dep from "../observe/dep";
 import {nativeWatch} from "../util/vue-util/env";

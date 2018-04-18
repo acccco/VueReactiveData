@@ -1,13 +1,15 @@
+import Vue from '../src/index'
+
 function watchFuc(newValue, oldValue) {
     console.log(newValue, oldValue)
 }
 
-var props = {
+let props = {
     propsA: 1,
     propsB: 2
 }
 
-var vm = new Vue({
+let vm = new Vue({
     data: function () {
         return {
             baseTest: 1,
@@ -41,11 +43,10 @@ var vm = new Vue({
                 return props
             }
         }
-    }/*,
+    },
     propsData: {
         propsTest: false
-    }*/
+    }
 })
 
-window.vm = vm
-console.log(vm)
+vm.baseTest = 2

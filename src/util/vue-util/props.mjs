@@ -6,7 +6,7 @@
 };*/
 
 import {hasOwn, hyphenate} from "../normal-util";
-import {observe, observerState} from "../../observe";
+import {observe, observerState} from "../../observe/index";
 
 // 获取 prop 中 key 对应的值
 export function validateProp (key, propOptions, propsData, vm) {

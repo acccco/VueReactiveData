@@ -1,5 +1,5 @@
 import {hasSymbol} from "../util/vue-util/env";
-import {defineReactive, observerState} from "../observe";
+import {defineReactive, observerState} from "../observe/index";
 
 export function initInjections(vm) {
     // 获取到所有的 inject 对应的值
