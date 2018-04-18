@@ -26,7 +26,6 @@ export function initMixin(Vue) {
         vm._self = vm
         initLifecycle(vm)
         initEvents(vm)
-        initRender(vm)
         callHook(vm, 'beforeCreate')
         initInjections(vm)
         initState(vm)

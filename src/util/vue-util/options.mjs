@@ -282,7 +282,7 @@ export function mergeOptions(parent, child, vm) {
         parent = mergeOptions(parent, extendsFrom, vm)
     }
     // 和 extend 类似，其实最终调用的方法也是一样的，只不过 mixins 可以传多个
-    // 而且从这儿看 mixins 拥有比 extends 更高的优先级
+    // 而且从这儿看 mixins 拥有比 extends 中同名方法更高的优先级
     if (child.mixins) {
         for (let i = 0, l = child.mixins.length; i < l; i++) {
             parent = mergeOptions(parent, child.mixins[i], vm)

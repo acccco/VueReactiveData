@@ -36,7 +36,7 @@ export function initExtend (Vue) {
         if (Sub.options.props) {
             initProps(Sub)
         }
-
+        // 绑定计算属性
         if (Sub.options.computed) {
             initComputed(Sub)
         }

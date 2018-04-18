@@ -1,10 +1,13 @@
-export function initEvents (vm) {
+import {toArray} from "../util/normal-util.mjs";
+
+export function initEvents(vm) {
     vm._events = Object.create(null)
     vm._hasHookEvent = false
 }
 
-export function eventsMixin (Vue) {
+export function eventsMixin(Vue) {
     const hookRE = /^hook:/
+    // 添加事件
     Vue.prototype.$on = function (event, fn) {
         const vm = this
         // 处理事件名是数组的情况
@@ -14,35 +17,33 @@ export function eventsMixin (Vue) {
             }
         } else {
             (vm._events[event] || (vm._events[event] = [])).push(fn)
-            // optimize hook:event cost by using a boolean flag marked at registration
-            // instead of a hash lookup
             if (hookRE.test(event)) {
                 vm._hasHookEvent = true
             }
         }
         return vm
     }
-
+    // 触发一次的事件
     Vue.prototype.$once = function (event, fn) {
         const vm = this
-        function on () {
+
+        function on() {
             vm.$off(event, on)
             fn.apply(vm, arguments)
         }
+
         on.fn = fn
         vm.$on(event, on)
         return vm
     }
-
+    // 取消事件
     Vue.prototype.$off = function (event, fn) {
         const vm = this
-        // all
         // 清空所有事件
         if (!arguments.length) {
             vm._events = Object.create(null)
             return vm
         }
-        // array of events
         // 清空一个事件列表
         if (Array.isArray(event)) {
             for (let i = 0, l = event.length; i < l; i++) {
@@ -50,20 +51,18 @@ export function eventsMixin (Vue) {
             }
             return vm
         }
-        // specific event
         // 若没有事件对应的函数列表则不用处理
         const cbs = vm._events[event]
         if (!cbs) {
             return vm
         }
-        // 清空特定的事件
+        // 清空特定的事件对应的事件队列
         if (!fn) {
             vm._events[event] = null
             return vm
         }
         // 删除某个事件对应的特定的处理函数
         if (fn) {
-            // specific handler
             let cb
             let i = cbs.length
             while (i--) {
@@ -76,22 +75,10 @@ export function eventsMixin (Vue) {
         }
         return vm
     }
+    // 以上3个方法主要是对当前对下事件队列的管理
     // 触发事件
     Vue.prototype.$emit = function (event) {
         const vm = this
-        // 事件名字不合法的话在非正式环境提示修改
-        if (process.env.NODE_ENV !== 'production') {
-            const lowerCaseEvent = event.toLowerCase()
-            if (lowerCaseEvent !== event && vm._events[lowerCaseEvent]) {
-                tip(
-                    `Event "${lowerCaseEvent}" is emitted in component ` +
-                    `${formatComponentName(vm)} but the handler is registered for "${event}". ` +
-                    `Note that HTML attributes are case-insensitive and you cannot use ` +
-                    `v-on to listen to camelCase events when using in-DOM templates. ` +
-                    `You should probably use "${hyphenate(event)}" instead of "${event}".`
-                )
-            }
-        }
         // 触发事件
         let cbs = vm._events[event]
         if (cbs) {
@@ -101,7 +88,7 @@ export function eventsMixin (Vue) {
                 try {
                     cbs[i].apply(vm, args)
                 } catch (e) {
-                    handleError(e, vm, `event handler for "${event}"`)
+                    console.log(e)
                 }
             }
         }

@@ -25,9 +25,7 @@ export function validateProp (key, propOptions, propsData, vm) {
     // 获取到默认值
     if (value === undefined) {
         value = getPropDefaultValue(vm, prop, key)
-        // TODO 为什么要监听，有待确认，因为既然取了默认值
-        // TODO 那么父组件就没有传入值，而且 props 在子组件是禁止修改的，所以默认值永远不会变，监听也不会触发
-        // TODO 有待确认
+        // 由于默认值是有可能发生变化的，所以要设置监听
         const prevShouldConvert = observerState.shouldConvert
         observerState.shouldConvert = true
         observe(value)
@@ -60,6 +58,9 @@ function getType (fn) {
     return match ? match[1] : ''
 }
 
+/**
+ * 用来判断 fn 是不是 type 类型
+ */
 function isType (type, fn) {
     if (!Array.isArray(fn)) {
         return getType(fn) === getType(type)
