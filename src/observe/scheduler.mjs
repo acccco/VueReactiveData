@@ -3,7 +3,7 @@
  * Jobs with duplicate IDs will be skipped unless it's
  * pushed when the queue is being flushed.
  */
-import {callHook} from "../../instance/lifecycle";
+import {callHook} from "../instance/lifecycle";
 
 let has = {}
 let flushing = false

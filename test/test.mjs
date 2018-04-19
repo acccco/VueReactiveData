@@ -74,18 +74,19 @@ let vm = new Vue({
     },
     render() {
         console.log('template')
-        console.log(temFun(this))
+        return temFun(this)
     }
 })
 
-vm.$options.render.call(vm, {a: 1})
-
-new Watcher(vm, '_data', () => {
+new Watcher(vm, ()=>{
+    this._data
+    this._props
+}, () => {
     vm.$options.render.call(vm)
 }, {
     deep: true
 }, true)
 
-vm.baseTest = 2
+// vm.baseTest = 2
 
 props.propsA = 2
