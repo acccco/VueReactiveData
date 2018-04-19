@@ -1,5 +1,5 @@
-import Vue from '../src/index'
-import Watcher from '../src/observe/watcher'
+import Vue from '../src/core/index'
+import Watcher from '../src/core/observe/watcher'
 import dot from 'dot'
 
 let template = '<span>{{=it.baseTest}}</span><span>{{=it.returnTest()}}</span><span>{{=it.propsTest.propsA}}</span>'
@@ -112,8 +112,6 @@ let chlidCtor = vm.$options._base.extend(vm.$options.components["com-test"])
 let childVm = new chlidCtor()
 
 childVm.test()
-
-console.log(vm.$options._base === childVm.$options._base)
 
 
 /*new Watcher(vm, () => {

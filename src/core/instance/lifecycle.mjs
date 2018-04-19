@@ -31,4 +31,7 @@ export function callHook (vm, hook) {
             }
         }
     }
+    if (vm._hasHookEvent) {
+        vm.$emit('hook:' + hook)
+    }
 }

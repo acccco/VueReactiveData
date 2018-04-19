@@ -43,6 +43,7 @@ export function createFnInvoker(fns) {
     return invoker
 }
 
+// 更新事件队列
 export function updateListeners(on, oldOn, add, remove, vm) {
     let name, def, cur, old, event
     for (name in on) {
