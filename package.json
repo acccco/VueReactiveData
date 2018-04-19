@@ -8,6 +8,7 @@
     "test": "node --experimental-modules ./test/test.mjs"
   },
   "dependencies": {
-    "dot": "^1.1.2"
+    "dot": "^1.1.2",
+    "he": "^1.1.1"
   }
 }

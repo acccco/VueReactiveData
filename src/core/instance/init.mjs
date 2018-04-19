@@ -1,5 +1,5 @@
-import {mergeOptions} from "../util/vue-util/options"
-import {extend} from "../util/normal-util";
+import {mergeOptions} from "../../util/vue-util/options"
+import {extend} from "../../util/normal-util";
 import {callHook, initLifecycle} from "./lifecycle";
 import {initEvents} from "./events";
 import {initRender} from "./render";

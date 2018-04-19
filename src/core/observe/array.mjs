@@ -1,4 +1,4 @@
-import {def} from "../util/vue-util/lang";
+import {def} from "../../util/vue-util/lang";
 
 const arrayProto = Array.prototype
 export const arrayMethods = Object.create(arrayProto)

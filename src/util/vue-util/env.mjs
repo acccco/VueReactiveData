@@ -10,3 +10,8 @@ export function isNative (Ctor) {
 export const hasSymbol =
     typeof Symbol !== 'undefined' && isNative(Symbol) &&
     typeof Reflect !== 'undefined' && isNative(Reflect.ownKeys)
+
+export const inBrowser = typeof window !== 'undefined'
+export const UA = inBrowser && window.navigator.userAgent.toLowerCase()
+export const isIE = UA && /msie|trident/.test(UA)
+export const isEdge = UA && UA.indexOf('edge/') > 0

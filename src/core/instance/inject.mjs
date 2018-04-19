@@ -1,4 +1,4 @@
-import {hasSymbol} from "../util/vue-util/env";
+import {hasSymbol} from "../../util/vue-util/env";
 import {defineReactive, observerState} from "../observe/index";
 
 export function initInjections(vm) {

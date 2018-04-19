@@ -1,8 +1,8 @@
-import {def} from "../util/vue-util/lang";
+import {def} from "../../util/vue-util/lang";
 import Dep from "./dep";
-import {hasOwn, isObject, isPlainObject} from "../util/normal-util";
+import {hasOwn, isObject, isPlainObject} from "../../util/normal-util";
 import {arrayMethods} from "./array";
-import {hasProto} from "../util/vue-util/env";
+import {hasProto} from "../../util/vue-util/env";
 
 const arrayKeys = Object.getOwnPropertyNames(arrayMethods)
 

@@ -8,7 +8,7 @@
     params?: Array<any>
   }
  */
-import {cached, isUndef} from "../../util/normal-util";
+import {cached, isUndef} from "../../../util/normal-util";
 
 
 // 处理事件修饰符

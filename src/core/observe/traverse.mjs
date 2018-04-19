@@ -1,4 +1,4 @@
-import {isObject} from "../util/normal-util";
+import {isObject} from "../../util/normal-util";
 
 const seenObjects = new Set()
 

@@ -1,5 +1,5 @@
-import { ASSET_TYPES } from "../util/constants"
-import { isPlainObject } from "../util/normal-util"
+import { ASSET_TYPES } from "../../util/constants"
+import { isPlainObject } from "../../util/normal-util"
 
 export function initAssetRegisters (Vue) {
     ASSET_TYPES.forEach(type => {

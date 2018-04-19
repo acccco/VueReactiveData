@@ -1,8 +1,8 @@
-import {bind, isPlainObject, noop} from '../util/normal-util'
+import {bind, isPlainObject, noop} from '../../util/normal-util'
 import {defineReactive, observe, observerState} from "../observe/index";
-import {validateProp} from "../util/vue-util/props";
+import {validateProp} from "../../util/vue-util/props";
 import Dep from "../observe/dep";
-import {nativeWatch} from "../util/vue-util/env";
+import {nativeWatch} from "../../util/vue-util/env";
 import Watcher from "../observe/watcher";
 
 const sharedPropertyDefinition = {

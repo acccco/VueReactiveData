@@ -1,7 +1,7 @@
-import { ASSET_TYPES } from "../util/constants"
+import { ASSET_TYPES } from "../../util/constants"
 import { defineComputed, proxy } from '../instance/state'
-import { mergeOptions } from "../util/vue-util/options"
-import {extend} from "../util/normal-util";
+import { mergeOptions } from "../../util/vue-util/options"
+import {extend} from "../../util/normal-util";
 
 export function initExtend (Vue) {
 

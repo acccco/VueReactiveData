@@ -1,4 +1,4 @@
-import {mergeOptions} from "../util/vue-util/options";
+import {mergeOptions} from "../../util/vue-util/options";
 
 export function initMixin(Vue) {
     Vue.mixin = function (mixin) {

@@ -1,4 +1,4 @@
-import {toArray} from '../util/normal-util'
+import {toArray} from '../../util/normal-util'
 
 export function initUse(Vue) {
     Vue.use = function (plugin) {

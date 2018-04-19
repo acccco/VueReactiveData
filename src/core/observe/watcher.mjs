@@ -1,8 +1,8 @@
-import {parsePath} from "../util/vue-util/lang";
+import {parsePath} from "../../util/vue-util/lang";
 import Dep from "./dep";
 import {traverse} from "./traverse";
 import {queueWatcher} from "./scheduler";
-import {isObject, remove} from "../util/normal-util";
+import {isObject, remove} from "../../util/normal-util";
 
 let uid = 0
 

@@ -1,4 +1,4 @@
-import {remove} from "../util/normal-util"
+import {remove} from "../../util/normal-util"
 
 let uid = 0
 
