@@ -1,7 +1,5 @@
 /**
- * Push a watcher into the watcher queue.
- * Jobs with duplicate IDs will be skipped unless it's
- * pushed when the queue is being flushed.
+ * 将一个 watcher 推入 watcher 队列，优化调用
  */
 import {callHook} from "../instance/lifecycle";
 
@@ -28,7 +26,7 @@ export function queueWatcher(watcher) {
             queue.splice(i + 1, 0, watcher)
         }
         // 如果该队列还没有执行，就执行他
-        // TODO 源码中使用的 next-tick
+        // TODO 源码中使用的 next-tick ，这里先不考虑 event Loop
         if (!waiting) {
             waiting = true
             setTimeout(flushSchedulerQueue)

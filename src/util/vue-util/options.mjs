@@ -127,7 +127,7 @@ strats.watch = function (parentVal, childVal, vm, key) {
     // 由于 Firefox 下对象默认有 watch 方法，做兼容处理，nativeWatch 为 Object 自带的方法
     if (parentVal === nativeWatch) parentVal = undefined
     if (childVal === nativeWatch) childVal = undefined
-    /* istanbul ignore if */
+
     if (!childVal) return Object.create(parentVal || null)
     if (!parentVal) return childVal
     const ret = {}

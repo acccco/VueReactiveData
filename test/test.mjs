@@ -18,11 +18,12 @@ let props = {
 }
 
 let vm = new Vue({
+    name: 'root',
     created() {
-        this.$on('eventTest', () => {
+        /*this.$on('eventTest', () => {
             console.log('eventTest')
         })
-        this.methodsTest()
+        this.methodsTest()*/
     },
     data: function () {
         return {
@@ -35,7 +36,7 @@ let vm = new Vue({
         }
     },
     // watch 测试
-    watch: {
+    /*watch: {
         'baseTest': watchFuc,
         'objectTest': {
             deep: true,
@@ -44,13 +45,13 @@ let vm = new Vue({
         'arrayTest': {
             handler: watchFuc
         }
-    },
-    computed: {
+    },*/
+    /*computed: {
         computedTest() {
             return this.baseTest
         }
-    },
-    props: {
+    },*/
+    /*props: {
         propsTest: {
             type: Object,
             default() {
@@ -60,7 +61,7 @@ let vm = new Vue({
     },
     propsData: {
         // propsTest: false
-    },
+    },*/
     methods: {
         methodsTest() {
             console.log('methodsTest')
@@ -69,24 +70,61 @@ let vm = new Vue({
             }, 1000)
         },
         returnTest() {
+            console.log('parent Listen')
             return this.baseTest
         }
     },
-    render() {
+    /*render() {
         console.log('template')
         return temFun(this)
+    },*/
+    components: {
+        'com-test': {
+            name: 'com-test',
+            data() {
+                return {
+                    comData: 1
+                }
+            },
+            methods:{
+                test(){
+                    this.$emit('testEvent')
+                }
+            }
+        }
     }
 })
 
-new Watcher(vm, ()=>{
+/**
+ * 模拟父子组件通信
+ */
+// 模拟子组件实例化
+vm.$options.components["com-test"].parent = vm
+
+// 模拟父组件添加事件监听
+vm.$options.components["com-test"]._parentListeners = {
+    testEvent() {
+        vm.returnTest()
+    }
+}
+
+let chlidCtor = vm.$options._base.extend(vm.$options.components["com-test"])
+let childVm = new chlidCtor()
+
+childVm.test()
+
+console.log(vm.$options._base === childVm.$options._base)
+
+
+/*new Watcher(vm, () => {
     this._data
     this._props
 }, () => {
     vm.$options.render.call(vm)
 }, {
     deep: true
-}, true)
+}, true)*/
 
 // vm.baseTest = 2
 
-props.propsA = 2
+// props.propsA = 2
