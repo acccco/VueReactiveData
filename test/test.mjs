@@ -113,7 +113,6 @@ let childVm = new chlidCtor()
 
 childVm.test()
 
-
 /*new Watcher(vm, () => {
     this._data
     this._props
