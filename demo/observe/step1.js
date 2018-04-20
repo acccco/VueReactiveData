@@ -1,3 +1,5 @@
+// 文字解释：http://blog.acohome.cn/2018/04/11/vue-defineproperty/
+
 let callback = {
     target: null
 }

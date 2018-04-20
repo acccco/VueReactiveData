@@ -1,3 +1,5 @@
+// 文字解释：http://blog.acohome.cn/2018/04/16/vue-observe/
+
 import Watcher from './Watcher'
 import {observe} from "./Observe"
 
