@@ -1,5 +1,3 @@
-/* @flow */
-
 import {
     isPreTag,
     mustUseProp,
@@ -12,7 +10,7 @@ import {isUnaryTag, canBeLeftOpenTag} from './util'
 
 export const baseOptions = {
     expectHTML: true,
-    modules:[],
+    modules: [],
     directives: {},
     isPreTag,
     isUnaryTag,
@@ -20,5 +18,5 @@ export const baseOptions = {
     canBeLeftOpenTag,
     isReservedTag,
     getTagNamespace,
-    staticKeys: genStaticKeys(modules)
+    staticKeys: genStaticKeys([])
 }

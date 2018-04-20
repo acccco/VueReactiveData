@@ -1,6 +1,3 @@
-/* @flow */
-
-
 import {warn} from "../../../compiler/parser/index";
 
 export * from './attrs'
