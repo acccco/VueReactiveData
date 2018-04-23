@@ -1,5 +1,3 @@
-import {toArray} from "../../src/util/normal-util";
-
 let uid = 0
 
 export class Event {
@@ -9,22 +7,17 @@ export class Event {
     }
 
     $on(eventName, fn) {
-        const object = this
-        // 处理事件名是数组的情况
-        if (Array.isArray(eventName)) {
-            for (let i = 0, l = eventName.length; i < l; i++) {
-                this.$on(eventName[i], fn)
-            }
-        } else {
-            (object._events[eventName] || (object._events[eventName] = [])).push(fn)
-        }
+        let object = this;
+        // 若 _events 对象下无对应事件名，则新建一个数组，然后将处理函数推入数组
+        (object._events[eventName] || (object._events[eventName] = [])).push(fn)
         return object
     }
 
     $once(eventName, fn) {
-        const object = this
+        let object = this
 
         function on() {
+            // 先取消，然后触发，确保仅一次
             object.$off(eventName, on)
             fn.apply(object, arguments)
         }
@@ -35,34 +28,20 @@ export class Event {
     }
 
     $off(eventName) {
-        const object = this
-        // 清空所有事件
-        if (!arguments.length) {
-            object._events = Object.create(null)
-            return object
-        }
-        // 若没有事件对应的函数列表则不用处理
+        let object = this
         const cbs = object._events[eventName]
         if (cbs) {
+            // 取消置空即可
             object._events[eventName] = null
         }
         return object
     }
 
-    $emit(eventName) {
-        const object = this
-        // 触发事件
+    $emit(eventName, ...args) {
+        let object = this
         let cbs = object._events[eventName]
         if (cbs) {
-            cbs = cbs.length > 1 ? toArray(cbs) : cbs
-            const args = toArray(arguments, 1)
-            for (let i = 0, l = cbs.length; i < l; i++) {
-                try {
-                    cbs[i].apply(object, args)
-                } catch (e) {
-                    console.log(e)
-                }
-            }
+            cbs.forEach(func => func.apply(object, args))
         }
         return object
     }
