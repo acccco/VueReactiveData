@@ -7,4 +7,5 @@ VUE 源码太庞大，打算边阅读 VUE 源码，边实现部分 VUE 功能，
 就这样
 
 > npm install
+
 > npm run test
