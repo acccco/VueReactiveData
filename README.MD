@@ -6,6 +6,10 @@ VUE 源码太庞大，打算边阅读 VUE 源码，边实现部分 VUE 功能，
 
 就这样
 
+双向绑定已经差不多实现，事件也已经结束，整合 Vue。
+
+看了一眼 html =》 vnode 过程太复杂，先略过，直接先到 vnode =》 html
+
 > npm install
 
 > npm run test

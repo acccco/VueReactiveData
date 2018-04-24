@@ -220,8 +220,8 @@ export function parse(template, options) {
                         `text "${text}" outside root element will be ignored.`
                     )
                 }
+                return
             }
-            return
             // IE textarea placeholder bug
             /* istanbul ignore if */
             if (isIE &&
