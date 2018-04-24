@@ -63,4 +63,32 @@ eventTest.$emit('eventName2', '传入参数2')
 // 无输出
 eventTest.$emit('eventName3', '传入参数3')
 // 无输出
+eventTest.$emit('eventName4', '传入参数4')
+// 多个事件添加同一处理函数
+// 传入参数4
+eventTest.$emit('eventName5', '传入参数5')
+// 多个事件添加多个处理函数，第一个
+// 传入参数5
+// 多个事件添加多个处理函数，第二个
+// 传入参数5
+eventTest.$emit('eventName6', '传入参数6')
+// 多个事件添加多个处理函数，第一个
+// 传入参数6
+// 多个事件添加多个处理函数，第二个
+// 传入参数6
+console.log('------------------------------')
+
+eventTest.$off()
+eventTest.$emit('eventName1', '传入参数1')
+// 无输出
+eventTest.$emit('eventName2', '传入参数2')
+// 无输出
+eventTest.$emit('eventName3', '传入参数3')
+// 无输出
+eventTest.$emit('eventName4', '传入参数4')
+// 无输出
+eventTest.$emit('eventName5', '传入参数5')
+// 无输出
+eventTest.$emit('eventName6', '传入参数6')
+// 无输出
 console.log('------------------------------')
