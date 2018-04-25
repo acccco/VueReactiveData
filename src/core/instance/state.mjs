@@ -13,18 +13,18 @@ const sharedPropertyDefinition = {
 }
 
 // 将 target[key] 代理到 target[sourceKey][key] 下
-export function proxy (target, sourceKey, key) {
+export function proxy(target, sourceKey, key) {
     // 这里的 this 为 target
-    sharedPropertyDefinition.get = function proxyGetter () {
+    sharedPropertyDefinition.get = function proxyGetter() {
         return this[sourceKey][key]
     }
-    sharedPropertyDefinition.set = function proxySetter (val) {
+    sharedPropertyDefinition.set = function proxySetter(val) {
         this[sourceKey][key] = val
     }
     Object.defineProperty(target, key, sharedPropertyDefinition)
 }
 
-export function initState (vm) {
+export function initState(vm) {
     vm._watchers = []
     const opts = vm.$options
     if (opts.props) initProps(vm, opts.props)
@@ -40,7 +40,7 @@ export function initState (vm) {
     }
 }
 
-function initProps (vm, propsOptions) {
+function initProps(vm, propsOptions) {
     // 传入的 props 的值
     const propsData = vm.$options.propsData || {}
     // 存放 props 实际对应的值
@@ -62,14 +62,14 @@ function initProps (vm, propsOptions) {
     observerState.shouldConvert = true
 }
 
-function initMethods (vm, methods) {
+function initMethods(vm, methods) {
     for (const key in methods) {
         // 将 method 下的方法挂载到 VUE 实例上，并且绑定 this 对象
         vm[key] = methods[key] == null ? noop : bind(methods[key], vm)
     }
 }
 
-function initData (vm) {
+function initData(vm) {
     let data = vm.$options.data
     data = vm._data = typeof data === 'function'
         ? getData(data, vm)
@@ -89,7 +89,7 @@ function initData (vm) {
     observe(data, true /* asRootData */)
 }
 
-export function getData (data, vm) {
+export function getData(data, vm) {
     try {
         return data.call(vm, vm)
     } catch (e) {
@@ -98,9 +98,9 @@ export function getData (data, vm) {
     }
 }
 
-const computedWatcherOptions = { lazy: true }
+const computedWatcherOptions = {lazy: true}
 
-function initComputed (vm, computed) {
+function initComputed(vm, computed) {
     // _computedWatchers 保管生成通过计算属性的 watcher
     const watchers = vm._computedWatchers = Object.create(null)
 
@@ -123,7 +123,7 @@ function initComputed (vm, computed) {
     }
 }
 
-export function defineComputed (target, key, userDef) {
+export function defineComputed(target, key, userDef) {
     if (typeof userDef === 'function') {
         sharedPropertyDefinition.get = createComputedGetter(key)
         sharedPropertyDefinition.set = noop
@@ -140,8 +140,8 @@ export function defineComputed (target, key, userDef) {
     Object.defineProperty(target, key, sharedPropertyDefinition)
 }
 
-function createComputedGetter (key) {
-    return function computedGetter () {
+function createComputedGetter(key) {
+    return function computedGetter() {
         const watcher = this._computedWatchers && this._computedWatchers[key]
         if (watcher) {
             if (watcher.dirty) {
@@ -155,7 +155,7 @@ function createComputedGetter (key) {
     }
 }
 
-function initWatch (vm, watch) {
+function initWatch(vm, watch) {
     for (const key in watch) {
         const handler = watch[key]
         if (Array.isArray(handler)) {
@@ -168,7 +168,7 @@ function initWatch (vm, watch) {
     }
 }
 
-function createWatcher (vm, keyOrFn, handler, options) {
+function createWatcher(vm, keyOrFn, handler, options) {
     if (isPlainObject(handler)) {
         options = handler
         handler = handler.handler
@@ -180,12 +180,16 @@ function createWatcher (vm, keyOrFn, handler, options) {
     return vm.$watch(keyOrFn, handler, options)
 }
 
-export function stateMixin (Vue) {
+export function stateMixin(Vue) {
     // 将 this._data 代理到 this.$data 上
     const dataDef = {}
-    dataDef.get = function () { return this._data }
+    dataDef.get = function () {
+        return this._data
+    }
     const propsDef = {}
-    propsDef.get = function () { return this._props }
+    propsDef.get = function () {
+        return this._props
+    }
     Object.defineProperty(Vue.prototype, '$data', dataDef)
     Object.defineProperty(Vue.prototype, '$props', propsDef)
 
@@ -203,7 +207,7 @@ export function stateMixin (Vue) {
         if (options.immediate) {
             cb.call(vm, watcher.value)
         }
-        return function unwatchFn () {
+        return function unwatchFn() {
             watcher.teardown()
         }
     }
