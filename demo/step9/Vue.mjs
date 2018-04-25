@@ -49,14 +49,8 @@ export class Vue extends Event {
         }
 
         for (let key in options.watch) {
-            let segments = key.split('.')
-            new Watcher(vm, function () {
-                let obj = vm
-                for (let i = 0; i < segments.length; i++) {
-                    if (!obj) return
-                    obj = obj[segments[i]]
-                }
-                return obj
+            new Watcher(vm, () => {
+                return key.split('.').reduce((obj, name) => obj[name], vm)
             }, options.watch[key])
         }
 
