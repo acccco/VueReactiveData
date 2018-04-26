@@ -30,8 +30,15 @@ test.$on('eventTest', function (event) {
     console.log(event)
 })
 
+console.log(test.baseTest)
+// baseTest
+
 test.methodTest()
+// methodTest
+// 事件测试
 
 test.baseTest = 'baseTestChange'
+// baseTest change baseTest => baseTestChange
 
 test.objTest.stringA = 'stringAChange'
+// objTest.stringA change stringA => stringAChange

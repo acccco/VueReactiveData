@@ -2,17 +2,16 @@ import {Event} from "../util/Event.mjs";
 import {observe} from "../util/Observe";
 import Watcher from "../util/Watcher.mjs";
 
-const sharedPropertyDefinition = {
-    enumerable: true,
-    configurable: true,
-    get() {
-    },
-    set() {
-    }
-}
 
 export function proxy(target, sourceKey, key) {
-    // 这里的 this 为 target
+    const sharedPropertyDefinition = {
+        enumerable: true,
+        configurable: true,
+        get() {
+        },
+        set() {
+        }
+    }
     sharedPropertyDefinition.get = function proxyGetter() {
         return this[sourceKey][key]
     }
@@ -33,8 +32,6 @@ export class Vue extends Event {
     _init(options) {
         let vm = this
         vm.uid = uid++
-        vm.$options = options
-        vm._watchers = []
 
         if (options.methods) {
             for (let key in options.methods) {
