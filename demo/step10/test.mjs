@@ -30,16 +30,16 @@ let test = new Vue({
 console.log('-------------')
 console.log(test.computedValue)
 // 测试缓存
-// acoYang
+// aco Yang
 console.log(test.computedValue)
 // acoYang （缓存成功，并没有调用 get 函数）
 
 test.firstName = 'acco'
 console.log(test.computedValue)
 // 测试缓存 （当依赖发生变化时，就会调用 get 函数）
-// accoYang
+// acco Yang
 
 test.computedSet = 'accco Yang'
 console.log(test.computedValue)
 // 测试缓存 （通过 set 使得依赖发生了变化）
-// accoYang
+// accco Yang
