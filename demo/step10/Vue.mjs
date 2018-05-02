@@ -27,17 +27,15 @@ let uid = 0
 export class Vue extends Event {
     constructor(options) {
         super()
+        this.uid = uid++
         this._init(options)
     }
 
     _init(options) {
         let vm = this
-        vm.uid = uid++
 
-        if (options.methods) {
-            for (let key in options.methods) {
-                vm[key] = options.methods[key].bind(vm)
-            }
+        for (let key in options.methods) {
+            vm[key] = options.methods[key].bind(vm)
         }
 
         vm._data = options.data.call(vm)
@@ -53,7 +51,7 @@ export class Vue extends Event {
         }
 
         for (let key in options.computed) {
-            new Computed(key, options.computed[key], vm)
+            new Computed(vm, key, options.computed[key])
         }
 
     }

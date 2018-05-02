@@ -7,7 +7,7 @@ let uid = 0
 
 export default class Computed {
     constructor(key, option, ctx) {
-        this.uid = ++uid
+        this.uid = uid++
         this.key = key
         this.option = option
         this.ctx = ctx
