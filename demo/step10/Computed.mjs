@@ -1,20 +1,21 @@
-import Watcher from '../util/Watcher.mjs'
+import Watcher from '../util/Watcher'
 
 function noop() {
 }
 
+let uid = 0
+
 export default class Computed {
     constructor(key, option, ctx) {
+        this.uid = ++uid
         this.key = key
-        this.ctx = ctx
         this.option = option
+        this.ctx = ctx
         this._init()
     }
 
     _init() {
-        let computedWatchers = this.ctx._computedWatchers
-
-        let watcher = computedWatchers[this.key] = new Watcher(
+        let watcher = new Watcher(
             this.ctx,
             this.option.get || noop,
             noop,

@@ -52,7 +52,6 @@ export class Vue extends Event {
             }, options.watch[key])
         }
 
-        vm._computedWatchers = {}
         for (let key in options.computed) {
             new Computed(key, options.computed[key], vm)
         }
