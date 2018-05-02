@@ -8,31 +8,38 @@ let test = new Vue({
         }
     },
     computed: {
-        computedValue1: {
+        computedValue: {
             get() {
                 console.log('测试缓存')
-                return this.firstName + this.lastName
+                return this.firstName + ' ' + this.lastName
             }
         },
-        computedValue2: {
+        computedSet: {
             get() {
-                return this.lastName + this.firstName
+                return this.firstName + ' ' + this.lastName
+            },
+            set(value) {
+                let names = value.split(' ')
+                this.firstName = names[0]
+                this.lastName = names[1]
             }
-        },
+        }
     }
 })
 // 测试缓存 （刚绑定 watcher 时会调用一次 get 进行依赖绑定）
 console.log('-------------')
-console.log(test.computedValue1)
+console.log(test.computedValue)
 // 测试缓存
 // acoYang
-console.log(test.computedValue1)
+console.log(test.computedValue)
 // acoYang （缓存成功，并没有调用 get 函数）
 
 test.firstName = 'acco'
-console.log(test.computedValue1)
+console.log(test.computedValue)
 // 测试缓存 （当依赖发生变化时，就会调用 get 函数）
 // accoYang
 
-console.log(test.computedValue2)
-// Yangacco
+test.computedSet = 'accco Yang'
+console.log(test.computedValue)
+// 测试缓存 （通过 set 使得依赖发生了变化）
+// accoYang
