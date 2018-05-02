@@ -6,7 +6,7 @@ function noop() {
 let uid = 0
 
 export default class Computed {
-    constructor(key, option, ctx) {
+    constructor(ctx, key, option,) {
         this.uid = uid++
         this.key = key
         this.option = option
