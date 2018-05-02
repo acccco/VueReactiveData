@@ -5,7 +5,7 @@ import Computed from "./Computed.mjs";
 
 
 export function proxy(target, sourceKey, key) {
-    const sharedPropertyDefinition = {
+    let sharedPropertyDefinition = {
         enumerable: true,
         configurable: true,
         get() {
