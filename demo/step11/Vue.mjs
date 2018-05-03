@@ -3,6 +3,8 @@ import {observe} from "../util/Observe";
 import Watcher from "../util/Watcher.mjs";
 import Computed from "./Computed.mjs";
 import {proxy} from "../util/util.mjs";
+import {mergeOptions} from "../util/options.mjs";
+import {resolveConstructorOptions} from "../../src/core/instance/init.mjs";
 
 let uid = 0
 
@@ -15,6 +17,12 @@ export class Vue extends Event {
 
     _init(options) {
         let vm = this
+
+        options = vm.$options = mergeOptions(
+            this.constructor.options,
+            options,
+            vm
+        )
 
         for (let key in options.methods) {
             vm[key] = options.methods[key].bind(vm)
@@ -39,15 +47,28 @@ export class Vue extends Event {
     }
 }
 
+Vue.options = {
+    components: {},
+    _base: Vue
+}
+
 Vue.extend = function (extendOptions) {
     const Super = this
+
     class Sub extends Super {
         constructor(options) {
-            super(extendOptions)
+            super(options)
         }
     }
 
+    Sub.options = mergeOptions(
+        Super.options,
+        extendOptions
+    )
+
     Sub.super = Super
     Sub.extend = Super.extend
+
+    return Sub
 }
 
