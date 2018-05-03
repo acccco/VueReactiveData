@@ -39,3 +39,15 @@ export class Vue extends Event {
     }
 }
 
+Vue.extend = function (extendOptions) {
+    const Super = this
+    class Sub extends Super {
+        constructor(options) {
+            super(extendOptions)
+        }
+    }
+
+    Sub.super = Super
+    Sub.extend = Super.extend
+}
+
