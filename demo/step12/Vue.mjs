@@ -23,7 +23,6 @@ export class Vue extends Event {
             vm
         )
 
-
         // 获取父节点
         let parent = vm.$options.parent
         // 将该节点放到父节点的 $children 列表中
