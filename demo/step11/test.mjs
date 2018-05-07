@@ -33,7 +33,7 @@ let test = new subVue({
     },
     methods: {
         subMethod() {
-            console.log('methodTest')
+            console.log('subMethodTest')
         }
     },
     watch: {
@@ -51,16 +51,26 @@ let test = new subVue({
 })
 
 console.log(test.dataTest)
+// 1
 console.log(test.subData)
+// 11
 
 console.log(test.computedTest)
+// 2
 console.log(test.subComputed)
+// 12
 
 test.methodTest()
+// methodTest
 test.subMethod()
+// subMethodTest
 
 test.dataTest = 2
+// watchTest newValue = 2
 test.subData = 12
+// subWatch newValue = 12
 
 console.log(test.constructor === subVue)
+// true
 console.log(subVue.super === Vue)
+// true

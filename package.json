@@ -9,12 +9,10 @@
   },
   "dependencies": {
     "dot": "^1.1.2",
-    "he": "^1.1.1"
+    "he": "^1.1.1",
+    "ramda": "^0.25.0"
   },
   "engines": {
     "node": "^8.9.0"
-  },
-  "devDependencies": {
-    "ramda": "^0.25.0"
   }
 }

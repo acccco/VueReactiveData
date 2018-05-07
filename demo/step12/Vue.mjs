@@ -24,6 +24,19 @@ export class Vue extends Event {
         )
 
 
+        // 获取父节点
+        let parent = vm.$options.parent
+        // 将该节点放到父节点的 $children 列表中
+        if (parent) {
+            parent.$children.push(vm)
+        }
+        // 设置父节点和根节点
+        vm.$parent = parent
+        vm.$root = parent ? parent.$root : vm
+        // 初始化子节点列表
+        vm.$children = []
+
+
         for (let key in vm.$options.methods) {
             vm[key] = vm.$options.methods[key].bind(vm)
         }
