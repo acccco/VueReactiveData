@@ -2,7 +2,8 @@ import R from 'ramda'
 
 export function mergeOptions(parent, child) {
     // data/methods/watch/computed
-    let options = {}
+    // 直接合并，避免 parent 和 child 中的属性丢失
+    let options = R.mergeAll([{}, parent, child])
 
     // 合并 data
     options.data = mergeData(parent.data, child.data)

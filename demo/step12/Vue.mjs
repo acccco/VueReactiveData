@@ -3,7 +3,7 @@ import {observe} from "../util/Observe";
 import Watcher from "../util/Watcher.mjs";
 import Computed from "../util/Computed.mjs";
 import {proxy} from "../util/util.mjs";
-import {mergeOptions} from "./options.mjs";
+import {mergeOptions} from "../util/options.mjs";
 
 let uid = 0
 
@@ -35,15 +35,29 @@ export class Vue extends Event {
         // 初始化子节点列表
         vm.$children = []
 
-
         for (let key in vm.$options.methods) {
             vm[key] = vm.$options.methods[key].bind(vm)
         }
 
-        vm._data = vm.$options.data.call(vm)
-        observe(vm._data)
-        for (let key in vm._data) {
+        // 处理未传 data 的情况
+        let data = vm._data = vm.$options.data ? vm.$options.data.call(vm) : {}
+        observe(data)
+        for (let key in data) {
             proxy(vm, '_data', key)
+        }
+
+        let props = vm._props = {}
+        let propsData = vm.$options.propsData
+        for (let key in vm.$options.props) {
+            let value = propsData[key]
+            if (!value) {
+                value = vm.$options.props[key].default
+            }
+            props[key] = value
+        }
+        observe(props)
+        for (let key in props) {
+            proxy(vm, '_props', key)
         }
 
         for (let key in vm.$options.watch) {
