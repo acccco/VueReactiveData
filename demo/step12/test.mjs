@@ -4,7 +4,9 @@ import Watcher from '../util/Watcher'
 let test = new Vue({
     data() {
         return {
-            dataTest: 1
+            dataTest: {
+                subTest: 1
+            }
         }
     },
     components: {
@@ -30,7 +32,7 @@ let options = test.$options.components.sub
 options.parent = test
 
 // 假设这是模板解析出来的数据
-// 比如模板是这样 <sub propsStaticTest="propsStaticValue" :propsDynamicTest="dataTest"></sub>
+// 比如模板是这样 <sub propsStaticTest="propsStaticValue" :propsDynamicTest="dataTest.subTest"></sub>
 // 在 vue 中使用 :/v-bind 就是动态绑定
 let propsOption = [{
     key: 'propsStaticTest',
@@ -38,7 +40,7 @@ let propsOption = [{
     isDynamic: false
 }, {
     key: 'propsDynamicTest',
-    value: 'dataTest',
+    value: 'dataTest.subTest',
     isDynamic: true
 }]
 
@@ -68,7 +70,7 @@ propsOption.forEach(item => {
 console.log(testComSub.propsStaticTest)
 console.log(testComSub.propsDynamicTest)
 
-test.dataTest = 2
+test.dataTest.subTest = 2
 
 console.log(testComSub.propsDynamicTest)
 

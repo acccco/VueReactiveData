@@ -93,12 +93,15 @@ eventTest.$emit('eventName6', '传入参数6')
 // 无输出
 console.log('------------------------------')
 
-let fn = (e) => {
+let fn1 = (e) => {
     console.log(e)
 }
-eventTest.$on('eventName7', fn)
+let fn2 = (e) => {
+    console.log(e)
+}
+eventTest.$on('eventName7', [fn1, fn2])
 eventTest.$on('eventName7', (e) => {
     console.log(e)
 })
-eventTest.$off('eventName7', fn)
+eventTest.$off('eventName7', [fn1, fn2])
 eventTest.$emit('eventName7', '测试取消')
