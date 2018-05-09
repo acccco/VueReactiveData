@@ -28,9 +28,6 @@ let test = new Vue({
     }
 })
 
-let options = test.$options.components.sub
-options.parent = test
-
 // 假设这是模板解析出来的数据
 // 比如模板是这样 <sub propsStaticTest="propsStaticValue" :propsDynamicTest="dataTest.subTest"></sub>
 // 在 vue 中使用 :/v-bind 就是动态绑定
@@ -54,23 +51,28 @@ propsOption.forEach(item => {
 })
 
 // props 数据是动态所以应该是生成实例的时候传入，而配置是静态的所以应该是扩展的时候传入
-let testComSub = new (Vue.extend(options))({propsData})
+let testSubClass = Vue.extend(test.$options.components.sub)
+let testSub = new testSubClass({parent: test, propsData})
 
 // 添加监听，将父组件的变化映射到子组件中
 propsOption.forEach(item => {
     if (item.isDynamic) {
-        new Watcher(test, () => {
+        new Watcher({}, () => {
             return item.value.split('.').reduce((obj, name) => obj[name], test)
         }, (newValue, oldValue) => {
-            testComSub[item.key] = newValue
+            testSub[item.key] = newValue
         })
     }
 })
 
-console.log(testComSub.propsStaticTest)
-console.log(testComSub.propsDynamicTest)
+console.log(testSub.propsStaticTest)
+// propsStaticValue
+console.log(testSub.propsDynamicTest)
+// 1
 
 test.dataTest.subTest = 2
+// propsDynamicTest newValue = 2
 
-console.log(testComSub.propsDynamicTest)
+console.log(testSub.propsDynamicTest)
+// 2
 
