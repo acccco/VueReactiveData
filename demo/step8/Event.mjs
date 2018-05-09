@@ -63,6 +63,7 @@ export class Event {
             // 处理一次取消多个的情况
             if (Array.isArray(fn)) {
                 fn.forEach(fnc => this.$off(eventName, fnc))
+                return
             }
             while (i--) {
                 cb = cbs[i]
