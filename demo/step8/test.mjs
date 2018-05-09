@@ -92,3 +92,13 @@ eventTest.$emit('eventName5', '传入参数5')
 eventTest.$emit('eventName6', '传入参数6')
 // 无输出
 console.log('------------------------------')
+
+let fn = (e) => {
+    console.log(e)
+}
+eventTest.$on('eventName7', fn)
+eventTest.$on('eventName7', (e) => {
+    console.log(e)
+})
+eventTest.$off('eventName7', fn)
+eventTest.$emit('eventName7', '测试取消')

@@ -38,7 +38,7 @@ export class Event {
         let object = this
         // 清空所有事件
         if (!arguments.length) {
-            object._events = Object.create(null)
+            object._events = {}
             return object
         }
         // 清空多个事件
@@ -66,7 +66,7 @@ export class Event {
             }
             while (i--) {
                 cb = cbs[i]
-                if (cb === fn) {
+                if (cb === fn || cb.fn === fn) {
                     cbs.splice(i, 1)
                     break
                 }

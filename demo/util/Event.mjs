@@ -38,7 +38,7 @@ export class Event {
         let object = this
         // 清空所有事件
         if (!arguments.length) {
-            object._events = Object.create(null)
+            object._events = {}
             return object
         }
         // 清空多个事件
