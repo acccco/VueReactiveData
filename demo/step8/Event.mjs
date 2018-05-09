@@ -66,7 +66,7 @@ export class Event {
             }
             while (i--) {
                 cb = cbs[i]
-                if (cb === fn || cb.fn === fn) {
+                if (cb === fn) {
                     cbs.splice(i, 1)
                     break
                 }
