@@ -1,15 +1,12 @@
-VUE 源码太庞大，打算边阅读 VUE 源码，边实现部分 VUE 功能，等功能全部实现了，那个 VUE 源码的阅读之路也算是完成了。
+VUE 中数据绑定过程 DEMO
 
-阅读 VUE 源码暂时暂停，记录在阅读中了解到的 VUE 内部的实现
+从第5步开始，代码并不能运行在浏览器中，为了方便测试，直接在 node 环境中执行。
 
-目前已经了解到 VUE 中是如何实现双向绑定，会记录下一些文章。
+执行方式，进入对应的文件夹，比如想执行 step5 中的测试文件。
 
-就这样
+```
+cd demo/step5
+node --experimental-modules test.mjs
+```
 
-双向绑定已经差不多实现，事件也已经结束，整合 Vue。
-
-看了一眼 html =》 vnode 过程太复杂，先略过，直接先到 vnode =》 html
-
-> npm install
-
-> npm run test
+就能得出对应结果
