@@ -31,16 +31,16 @@ node --experimental-modules test.mjs
 
 
 
-[1]: (http://blog.acohome.cn/2018/04/11/vue-defineproperty/)
-[2]: (http://blog.acohome.cn/2018/04/11/vue-dep/)
-[3]: (http://blog.acohome.cn/2018/04/12/vue-watcher/)
-[4]: (http://blog.acohome.cn/2018/04/12/vue-you-hua-watcher/)
-[5]: (http://blog.acohome.cn/2018/04/16/vue-observe/)
-[6]: (http://blog.acohome.cn/2018/04/20/vue-array/)
-[7]: (http://blog.acohome.cn/2018/04/23/vue-event/)
-[8]: (http://blog.acohome.cn/2018/04/24/vue-event2/)
-[9]: (http://blog.acohome.cn/2018/04/26/vue-vue/)
-[10]: (http://blog.acohome.cn/2018/05/03/vue-computed/)
-[11]: (http://blog.acohome.cn/2018/05/07/vue-extend/)
-[12]: (http://blog.acohome.cn/2018/05/10/vue-props/)
-[13]: (http://blog.acohome.cn/2018/05/14/vue-inject-zong-jie/)
+[1]: http://blog.acohome.cn/2018/04/11/vue-defineproperty/
+[2]: http://blog.acohome.cn/2018/04/11/vue-dep/
+[3]: http://blog.acohome.cn/2018/04/12/vue-watcher/
+[4]: http://blog.acohome.cn/2018/04/12/vue-you-hua-watcher/
+[5]: http://blog.acohome.cn/2018/04/16/vue-observe/
+[6]: http://blog.acohome.cn/2018/04/20/vue-array/
+[7]: http://blog.acohome.cn/2018/04/23/vue-event/
+[8]: http://blog.acohome.cn/2018/04/24/vue-event2/
+[9]: http://blog.acohome.cn/2018/04/26/vue-vue/
+[10]: http://blog.acohome.cn/2018/05/03/vue-computed/
+[11]: http://blog.acohome.cn/2018/05/07/vue-extend/
+[12]: http://blog.acohome.cn/2018/05/10/vue-props/
+[13]: http://blog.acohome.cn/2018/05/14/vue-inject-zong-jie/
