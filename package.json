@@ -1,12 +1,9 @@
 {
-  "name": "aVue",
+  "name": "vueReactiveData",
   "version": "1.0.0",
   "main": "index.js",
   "author": "aco <wwsxuan@163.com>",
   "license": "MIT",
-  "scripts": {
-    "test": "node --experimental-modules ./test/test.mjs"
-  },
   "dependencies": {
     "dot": "^1.1.2",
     "ramda": "^0.25.0"
